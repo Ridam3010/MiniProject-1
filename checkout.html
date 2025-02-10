@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+  <header>
+    <nav>
+        <ul>
+           <li><a href="about.html">About</a></li>
+           <li><a href="library.html">Libraries</a></li>
+           <li><a href="Track.html">Track</a></li>
+           <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+  <main>
+    <section class="checkout-details">
+      <h2>Review Your Cart</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Book Title</th>
+            <th>Due Date</th>
+            <th>Potential Fine (per day)</th>
+          </tr>
+        </thead>
+        <tbody id="checkout-list">
+          <!-- Filled dynamically using JavaScript -->
+        </tbody>
+      </table>
+      <button id="confirm-checkout">Confirm Checkout</button>
+    </section>
+  </main>
+  <footer>
+    <div id="contact">
+        <h2 align="center">Contact Us</h2>
+        <form action="#">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <p>&copy; 2024 LibraryConnect. All rights reserved.</p>
+</footer>
+  <script>
+    // Simulated cart data (this would normally come from a database or the previous page)
+    const cart = [
+      { title: 'Book 1', dueDate: '2024-01-10', finePerDay: '₹10' },
+      { title: 'Book 2', dueDate: '2024-01-12', finePerDay: '₹15' }
+    ];
+
+    const checkoutList = document.getElementById('checkout-list');
+    const confirmButton = document.getElementById('confirm-checkout');
+
+    // Populate the checkout list with cart data
+    cart.forEach(book => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${book.title}</td>
+        <td>${book.dueDate}</td>
+        <td>${book.finePerDay}</td>
+      `;
+      checkoutList.appendChild(row);
+    });
+
+    // Confirm checkout functionality
+    confirmButton.addEventListener('click', () => {
+      alert('Checkout Confirmed! Enjoy your books.');
+      // Redirect to homepage or perform backend actions
+      window.location.href = 'index.html'; // Replace with your homepage URL
+    });
+  </script>
+</body>
+</html>

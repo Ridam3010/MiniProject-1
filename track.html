@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading Tracker</title>
+  <link rel="stylesheet" href="track.css">
+</head>
+<body>
+  <header>
+    <nav>
+        <ul>
+           <li><a href="about.html">About</a></li>
+           <li><a href="library.html">Libraries</a></li>
+           <li><a href="Track.html">Track</a></li>
+           <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+</header>
+  <main>
+    <section class="tracker-section">
+      <h2>Track Your Reading</h2>
+      <div class="tracker-info">
+        <p><strong>Book Title:</strong> Example Book Title</p>
+        <p><strong>Due Date:</strong> <span id="due-date">2024-01-10</span></p>
+        <p><strong>Days Before Due Date:</strong> <span id="days-left">12</span></p>
+      </div>
+
+      <form id="reading-form">
+        <label for="pages-read">Pages Read Today:</label>
+        <input type="number" id="pages-read" name="pages-read" required min="1">
+        <button type="submit">Log Progress</button>
+      </form>
+    </section>
+
+    <section class="log-section">
+      <h2>Daily Reading Log</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Pages Read</th>
+          </tr>
+        </thead>
+        <tbody id="log-table">
+          <!-- Logs will be dynamically added here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <div id="contact">
+        <h2 align="center">Contact Us</h2>
+        <form action="#">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <p>&copy; 2024 LibraryConnect. All rights reserved.</p>
+</footer>
+  <script>
+    // Initialize variables
+    const dueDate = new Date("2024-01-10"); // Replace with dynamic due date if needed
+    const daysLeftElement = document.getElementById("days-left");
+    const logTable = document.getElementById("log-table");
+
+    // Calculate and display days before due date
+    const calculateDaysLeft = () => {
+      const today = new Date();
+      const timeDifference = dueDate - today;
+      const daysLeft = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+      daysLeftElement.textContent = daysLeft >= 0 ? daysLeft : "Past Due";
+    };
+    calculateDaysLeft();
+
+    // Handle form submission
+    const form = document.getElementById("reading-form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const pagesRead = document.getElementById("pages-read").value;
+
+      if (pagesRead && pagesRead > 0) {
+        const today = new Date().toISOString().split("T")[0];
+
+        // Add to the log table
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `<td>${today}</td><td>${pagesRead}</td>`;
+        logTable.appendChild(newRow);
+
+        // Reset the input field
+        document.getElementById("pages-read").value = "";
+      }
+    });
+  </script>
+</body>
+</html>
